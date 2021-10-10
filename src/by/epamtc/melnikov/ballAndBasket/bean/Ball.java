@@ -35,26 +35,34 @@ public class Ball {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((colorType == null) ? 0 : colorType.hashCode());
+		result = prime * result + ((materialType == null) ? 0 : materialType.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(weight);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
 
-        Ball ball = (Ball) o;
-
-        if (Double.compare(ball.getWeight(), getWeight()) != 0) return false;
-        if (getColorType() != ball.getColorType()) return false;
-        return getMaterialType() == ball.getMaterialType();
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        temp = Double.doubleToLongBits(getWeight());
-        result = (int) (temp ^ (temp >>> 32));
-        result = 31 * result + getColorType().hashCode();
-        result = 31 * result + getMaterialType().hashCode();
-        return result;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ball other = (Ball) obj;
+		if (colorType != other.colorType)
+			return false;
+		if (materialType != other.materialType)
+			return false;
+		if (Double.doubleToLongBits(weight) != Double.doubleToLongBits(other.weight))
+			return false;
+		return true;
+	}
+    
 }

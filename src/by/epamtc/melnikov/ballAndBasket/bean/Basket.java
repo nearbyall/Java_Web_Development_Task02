@@ -50,23 +50,32 @@ public class Basket {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(balls);
+		result = prime * result + ballsCount;
+		result = prime * result + capasity;
+		return result;
+	}
 
-        Basket basket = (Basket) o;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Basket other = (Basket) obj;
+		if (!Arrays.equals(balls, other.balls))
+			return false;
+		if (ballsCount != other.ballsCount)
+			return false;
+		if (capasity != other.capasity)
+			return false;
+		return true;
+	}
 
-        if (getCapasity() != basket.getCapasity()) return false;
-        if (getBallsCount() != basket.getBallsCount()) return false;
-        return Arrays.equals(getBalls(), basket.getBalls());
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getCapasity();
-        result = 31 * result + getBallsCount();
-        result = 31 * result + Arrays.hashCode(getBalls());
-        return result;
-    }
 }
